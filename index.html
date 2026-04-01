@@ -440,7 +440,7 @@
   </div>
   <div class="h-right">
     <span class="d-plus" id="dplus">D+0</span>
-    <span class="today-pill" id="today-pill">--</span>
+    <span class="today-pill">3월 28일</span>
   </div>
 </div>
 <div class="prog">
@@ -536,11 +536,9 @@
 
 
 <script>
-// 오늘 날짜를 동적으로 (매일 갱신)
-const _now = new Date();
-const TODAY_2026 = (_now.getFullYear()===2026) ? _now : new Date(2026, 11, 31);
-const TODAY_2027 = (_now.getFullYear()===2027) ? _now : new Date(2027, 0, 1);
-let TODAY = (_now.getFullYear()===2026) ? TODAY_2026 : TODAY_2027;
+const TODAY_2026 = new Date(2026, 2, 28);
+const TODAY_2027 = new Date(2027, 0, 1);
+let TODAY = TODAY_2026;
 let CURRENT_YEAR = 2026;
 const WDAYS    = ['월','화','수','목','금','토','일'];
 const WDAYS_KR = ['일','월','화','수','목','금','토'];
@@ -951,8 +949,8 @@ function submitEvent(){
 
 // ── 사용자 목표 수정 ─────────────────────────────────────────
 let USER_GOALS = {};
-try{ USER_GOALS = JSON.parse(localStorage.getItem('ug2026')||'{}'); }catch(e){}
-function saveUserGoals(){ try{ localStorage.setItem('ug2026', JSON.stringify(USER_GOALS)); }catch(e){} }
+try{ USER_GOALS = JSON.parse(localStorage.getItem('ug'+CURRENT_YEAR)||'{}'); }catch(e){}
+function saveUserGoals(){ try{ localStorage.setItem('ug'+CURRENT_YEAR, JSON.stringify(USER_GOALS)); }catch(e){} }
 
 let editGoalMonth = null;
 
@@ -1090,6 +1088,7 @@ function switchYear(year) {
   // 연도별 사용자 데이터 로드
   try{ USER_EVENTS = JSON.parse(localStorage.getItem('ue'+year)||'[]'); }catch(e){ USER_EVENTS=[]; }
   try{ HIDDEN      = JSON.parse(localStorage.getItem('hid'+year)||'[]'); }catch(e){ HIDDEN=[]; }
+  try{ USER_GOALS  = JSON.parse(localStorage.getItem('ug'+year)||'{}'); }catch(e){ USER_GOALS={}; }
   document.getElementById('yr-2026').classList.toggle('active', year===2026);
   document.getElementById('yr-2027').classList.toggle('active', year===2027);
   render();
@@ -1098,8 +1097,7 @@ function switchYear(year) {
 // ── 초기 렌더 ───────────────────────────────────────────────
 function render(){
   const s=new Date(CURRENT_YEAR,0,1),e=new Date(CURRENT_YEAR,11,31);
-  document.getElementById('dplus').textContent=`D+${Math.max(0,Math.floor((TODAY-s)/86400000))}`;
-  document.getElementById('today-pill').textContent=`${TODAY.getMonth()+1}월 ${TODAY.getDate()}일`;
+  document.getElementById('dplus').textContent=`D+${Math.floor((TODAY-s)/86400000)}`;
   const pct=Math.min(100,Math.max(0,Math.round((TODAY-s)/(e-s)*100)));
   document.getElementById('pct').textContent=pct+'%';
   document.getElementById('pf').style.width=pct+'%';
