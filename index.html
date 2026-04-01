@@ -440,7 +440,7 @@
   </div>
   <div class="h-right">
     <span class="d-plus" id="dplus">D+0</span>
-    <span class="today-pill">3월 28일</span>
+    <span class="today-pill" id="today-pill"></span>
   </div>
 </div>
 <div class="prog">
@@ -536,9 +536,11 @@
 
 
 <script>
-const TODAY_2026 = new Date(2026, 2, 28);
-const TODAY_2027 = new Date(2027, 0, 1);
-let TODAY = TODAY_2026;
+const _now = new Date();
+const _y = _now.getFullYear();
+const TODAY_2026 = _y === 2026 ? _now : (_y < 2026 ? new Date(2026,0,1) : new Date(2026,11,31));
+const TODAY_2027 = _y === 2027 ? _now : (_y < 2027 ? new Date(2027,0,1) : new Date(2027,11,31));
+let TODAY = _y <= 2026 ? TODAY_2026 : TODAY_2027;
 let CURRENT_YEAR = 2026;
 const WDAYS    = ['월','화','수','목','금','토','일'];
 const WDAYS_KR = ['일','월','화','수','목','금','토'];
@@ -1080,6 +1082,7 @@ function switchYear(year) {
   if (CURRENT_YEAR === year) return;
   CURRENT_YEAR = year;
   TODAY = year === 2026 ? TODAY_2026 : TODAY_2027;
+  const _tp2=document.getElementById('today-pill'); if(_tp2) _tp2.textContent=`${TODAY.getMonth()+1}월 ${TODAY.getDate()}일`;
   MONTH_BADGES = year === 2026 ? MONTH_BADGES_2026 : MONTH_BADGES_2027;
   GOALS        = year === 2026 ? GOALS_2026        : GOALS_2027;
   RANGES       = year === 2026 ? RANGES_2026        : RANGES_2027;
@@ -1097,7 +1100,8 @@ function switchYear(year) {
 // ── 초기 렌더 ───────────────────────────────────────────────
 function render(){
   const s=new Date(CURRENT_YEAR,0,1),e=new Date(CURRENT_YEAR,11,31);
-  document.getElementById('dplus').textContent=`D+${Math.floor((TODAY-s)/86400000)}`;
+  document.getElementById('dplus').textContent=`D+${Math.max(0,Math.floor((TODAY-s)/86400000))}`;
+  const _tp=document.getElementById('today-pill'); if(_tp) _tp.textContent=`${TODAY.getMonth()+1}월 ${TODAY.getDate()}일`;
   const pct=Math.min(100,Math.max(0,Math.round((TODAY-s)/(e-s)*100)));
   document.getElementById('pct').textContent=pct+'%';
   document.getElementById('pf').style.width=pct+'%';
