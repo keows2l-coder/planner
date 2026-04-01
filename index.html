@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>2026 취준 로드맵</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+
+  :root {
+
+    --bg: #0a0c10;
+    --surface: #10131a;
+    --card: #13161f;
+    --border: #1e2333;
+    --border2: #252c40;
+
+    --red:    #e05c6a;
+    --blue:   #4a7fd4;
+    --green:  #3db87a;
+    --yellow: #d4a83d;
+    --purple: #8a6acd;
+
+    --red-bg:    rgba(224, 92,106,0.13);
+    --overseas: #888780;
+    --overseas-bg: rgba(136,135,128,0.18);
+    --blue-bg:   rgba( 74,127,212,0.13);
+    --green-bg:  rgba( 61,184,122,0.13);
+    --yellow-bg: rgba(212,168, 61,0.13);
+    --purple-bg: rgba(138,106,205,0.10);
+
+    --red-text:    #f09098;
+    --overseas-text: #c8c7bf;
+    --blue-text:   #7aaaf0;
+    --green-text:  #6ad898;
+    --yellow-text: #e8c870;
+    --purple-text: #b090e0;
+
+    --text:        #d8dff0;
+    --text-dim:    #4a5270;
+    --text-mid:    #7a86a8;
+    --past-bg:     #0d0f16;
+    --past-text:   #252c3e;
+    --blue-bright: #6a9fef;
+    --blue-dim:    #2a4a80;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; font-weight:400; min-height:100vh; padding-bottom:200px; }
+
+  .header {
+    position:sticky; top:0; z-index:200;
+    background:rgba(10,12,16,0.97); backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+    padding:0 18px; height:52px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .h-left  { display:flex; align-items:center; gap:9px; }
+  .h-title { font-size:14px; font-weight:700; color:var(--text); }
+  .h-year  { font-size:10px; font-weight:600; color:var(--blue); background:var(--blue-bg); border:1px solid rgba(74,127,212,0.2); padding:2px 7px; border-radius:4px; }
+  .h-right { display:flex; align-items:center; gap:7px; }
+  .d-plus  { font-size:12px; font-weight:700; color:var(--blue-bright); }
+  .today-pill { font-size:9px; font-weight:600; color:#fff; background:var(--blue); padding:2px 8px; border-radius:20px; }
+
+  .prog { padding:10px 18px 8px; border-bottom:1px solid var(--border); background:var(--bg); }
+  .prog-top { display:flex; align-items:center; gap:8px; width:100%; }
+  .prog-lbl { font-size:10px; color:var(--text-mid); }
+  .prog-pct { font-size:10px; font-weight:700; color:var(--blue-bright); }
+  .prog-bar { flex:1; height:3px; background:var(--border2); border-radius:2px; overflow:hidden; }
+  .prog-fill { height:100%; background:linear-gradient(90deg,var(--blue-dim),var(--blue-bright)); border-radius:2px; }
+
+  .legend { display:flex; gap:10px; padding:6px 18px; align-items:center; border-bottom:1px solid var(--border); background:var(--bg); flex-wrap:nowrap; overflow:hidden; }
+  .li { display:flex; align-items:center; gap:5px; font-size:9px; color:var(--text-mid); }
+  .lc { width:8px; height:8px; border-radius:2px; }
+
+  .months { padding:10px 14px 20px; display:flex; flex-direction:column; gap:12px; }
+  .mcard { background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .mcard.past { opacity:0.32; }
+  .mcard.cur  { border-color:var(--blue-dim); box-shadow:0 0 0 1px rgba(74,127,212,0.1),0 4px 20px rgba(74,127,212,0.07); }
+
+  .mhead { padding:10px 14px 0; display:flex; flex-direction:column; gap:6px; }
+  .mhead-top { display:flex; align-items:center; justify-content:space-between; }
+  .mname { font-size:16px; font-weight:700; color:var(--text); letter-spacing:-0.02em; }
+  .mcard.cur .mname { color:var(--blue-bright); }
+  .mtags { display:flex; gap:5px; align-items:center; }
+  .mtag  { font-size:8px; font-weight:600; padding:2px 6px; border-radius:4px; }
+  .t-season { background:var(--surface); color:var(--text-mid); }
+  .t-cur    { background:var(--blue-bg); color:var(--blue); border:1px solid rgba(74,127,212,0.2); }
+  .t-done   { background:var(--surface); color:var(--text-dim); border:1px solid var(--border2); }
+
+  .mbadges { display:flex; gap:4px; flex-wrap:wrap; padding-bottom:6px; }
+  .mbadge  { font-size:9px; font-weight:600; padding:2px 8px; border-radius:20px; }
+  .mbadge.semester   { background:var(--green-bg);  color:var(--green-text);  border:1px solid rgba(61,184,122,0.2); }
+  .mbadge.vacation   { background:var(--green-bg);  color:var(--green-text);  border:1px solid rgba(61,184,122,0.2); }
+  .mbadge.activity   { background:var(--red-bg);    color:var(--red-text);    border:1px solid rgba(224,92,106,0.2); }
+  .mbadge.internship { background:var(--yellow-bg); color:var(--yellow-text); border:1px solid rgba(212,168,61,0.2); }
+
+  .mhead-divider { height:1px; background:var(--border); margin:0 14px; }
+
+  .mgoal { margin:8px 12px 0; padding:7px 10px; background:var(--purple-bg); border:1px solid rgba(138,106,205,0.16); border-radius:8px; }
+  .mgoal-head  { font-size:7px; font-weight:700; color:var(--purple); letter-spacing:0.1em; margin-bottom:4px; }
+  .mgoal-items { display:flex; flex-direction:column; gap:2px; }
+  .mgoal-item  { display:flex; align-items:baseline; gap:5px; font-size:9px; color:var(--purple-text); line-height:1.6; }
+  .mgoal-num   { font-size:7px; font-weight:700; color:rgba(138,106,205,0.5); min-width:9px; flex-shrink:0; }
+
+  .cal { padding:8px 12px 10px; }
+  .dheader { display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:3px; }
+  .dh { text-align:center; font-size:8px; font-weight:500; color:var(--text-dim); padding:2px 0; }
+  .dh.sun { color:rgba(224,92,106,0.55); }
+  .dh.sat { color:rgba(74,127,212,0.55); }
+  .dgrid  { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+
+  .dc {
+    border-radius:6px; min-height:52px;
+    padding:5px 2px 10px;
+    display:flex; flex-direction:column; align-items:center;
+    position:relative; overflow:hidden;
+    cursor:pointer; transition:filter .12s;
+  }
+  .dc:active { filter:brightness(1.35); }
+  .dc.emp  { background:transparent; cursor:default; pointer-events:none; }
+  .dc.past { background:var(--past-bg); }
+  .dc.fut  { background:var(--surface); }
+  .dc.tod  { background:var(--blue) !important; box-shadow:0 0 0 1px rgba(74,127,212,.5),0 2px 10px rgba(74,127,212,.3); }
+  .dc.selected { outline:2px solid rgba(74,127,212,.7); }
+  .dc.tod.selected { outline:2px solid rgba(255,255,255,.5); }
+  .dc.sun:not(.tod):not(.past) .dn { color:rgba(224,92,106,.75); }
+  .dc.sat:not(.tod):not(.past) .dn { color:rgba(106,159,239,.75); }
+  .dc.past .dn { color:var(--past-text); }
+  .dc.tod  .dn { color:#fff; font-weight:700; }
+  .dn { font-size:11px; font-weight:500; color:var(--text); line-height:1; flex-shrink:0; margin-bottom:3px; }
+
+  .rbars { width:100%; display:flex; flex-direction:column; gap:1px; position:absolute; bottom:4px; left:0; right:0; }
+  .rbar  { height:3px; width:100%; }
+  .rbar.rs   { border-radius:3px 0 0 3px; margin-left:3px; width:calc(100% - 3px); }
+  .rbar.re   { border-radius:0 3px 3px 0; margin-right:3px; width:calc(100% - 3px); }
+  .rbar.ro   { border-radius:3px; margin:0 3px; width:calc(100% - 6px); }
+  .rbar.rm   { border-radius:0; }
+  .rbar.row-s { border-radius:3px 0 0 3px !important; margin-left:3px !important; width:calc(100% - 3px) !important; }
+  .rbar.row-e { border-radius:0 3px 3px 0 !important; margin-right:3px !important; width:calc(100% - 3px) !important; }
+  .rbar.cert       { background:rgba( 74,127,212,.50); }
+  .rbar.activity   { background:rgba(224, 92,106,.45); }
+  .rbar.overseas   { background:rgba(136,135,128,.45); }
+  .rbar.school     { background:rgba( 61,184,122,.45); }
+  .rbar.internship { background:rgba(212,168, 61,.50); }
+
+  .dots { display:flex; gap:2px; margin-top:2px; justify-content:center; flex-wrap:wrap; }
+  .dot  { width:4px; height:4px; border-radius:50%; flex-shrink:0; }
+  .dot.activity  { background:var(--red);    }
+  .dot.overseas  { background:var(--overseas);  }
+  .dot.cert      { background:var(--blue);   }
+  .dot.school    { background:var(--green);  }
+  .dot.internship{ background:var(--yellow); }
+  .dot.goal      { background:var(--purple); }
+
+  .overlay { position:fixed; inset:0; z-index:250; background:rgba(0,0,0,.45); opacity:0; pointer-events:none; transition:opacity .25s; }
+  .overlay.open { opacity:1; pointer-events:all; }
+  .panel {
+    position:fixed; bottom:0; left:0; right:0; z-index:300;
+    background:#13161f; border-top:1px solid var(--border2);
+    border-radius:16px 16px 0 0; padding:0 18px 36px;
+    transform:translateY(100%); transition:transform .28s cubic-bezier(.4,0,.2,1);
+    max-height:260px; overflow-y:auto;
+  }
+  .panel.open { transform:translateY(0); }
+  .p-handle { width:36px; height:3px; border-radius:2px; background:var(--border2); margin:10px auto 12px; }
+  .p-date   { font-size:11px; font-weight:700; color:var(--blue-bright); margin-bottom:8px; }
+  .p-empty  { font-size:11px; color:var(--text-dim); padding:4px 0 8px; }
+  .p-items  { display:flex; flex-direction:column; gap:5px; }
+  .p-item   { display:flex; align-items:center; gap:9px; padding:7px 10px; border-radius:8px; font-size:11px; font-weight:500; line-height:1.4; }
+  .p-dot    { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+  .p-item.activity  { background:var(--red-bg);    color:var(--red-text);    }
+  .p-item.overseas  { background:var(--overseas-bg); color:var(--overseas-text); }
+  .p-item.cert      { background:var(--blue-bg);   color:var(--blue-text);   }
+  .p-item.school    { background:var(--green-bg);  color:var(--green-text);  }
+  .p-item.internship{ background:var(--yellow-bg); color:var(--yellow-text); }
+  .p-item.goal      { background:var(--purple-bg); color:var(--purple-text); }
+
+  /* ── 일정 추가 버튼 ── */
+  .p-add-btn {
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    width:100%; margin-top:10px; padding:9px;
+    background:rgba(74,127,212,0.12); border:1px dashed rgba(74,127,212,0.3);
+    border-radius:8px; color:var(--blue-text); font-size:11px; font-weight:600;
+    cursor:pointer; transition:background .15s;
+  }
+  .p-add-btn:active { background:rgba(74,127,212,0.22); }
+
+  /* 삭제 버튼 (사용자 추가 이벤트에만) */
+  .p-item-del {
+    margin-left:auto; font-size:14px; color:rgba(255,255,255,0.25);
+    cursor:pointer; padding:0 2px; flex-shrink:0; line-height:1;
+  }
+  .p-item-del:active { color:var(--red-text); }
+
+  /* ── 추가 폼 모달 ── */
+  .form-overlay {
+    position:fixed; inset:0; z-index:400;
+    background:rgba(0,0,0,0.6);
+    display:flex; align-items:flex-end;
+    opacity:0; pointer-events:none; transition:opacity .25s;
+  }
+  .form-overlay.open { opacity:1; pointer-events:all; }
+
+  .form-modal {
+    width:100%; background:#1a1d28;
+    border-radius:16px 16px 0 0;
+    border-top:1px solid var(--border2);
+    padding:0 18px 40px;
+    transform:translateY(100%);
+    transition:transform .28s cubic-bezier(.4,0,.2,1);
+  }
+  .form-overlay.open .form-modal { transform:translateY(0); }
+
+  .form-handle { width:36px; height:3px; border-radius:2px; background:var(--border2); margin:10px auto 14px; }
+  .form-title  { font-size:13px; font-weight:700; color:var(--text); margin-bottom:14px; }
+
+  .form-group  { display:flex; flex-direction:column; gap:5px; margin-bottom:12px; }
+  .form-label  { font-size:10px; font-weight:600; color:var(--text-mid); letter-spacing:0.06em; }
+
+  .form-input  {
+    background:var(--surface); border:1px solid var(--border2);
+    border-radius:8px; padding:9px 12px;
+    color:var(--text); font-size:16px; font-family:inherit;
+    outline:none; width:100%;
+  }
+  .form-input:focus { border-color:var(--blue); }
+  /* iOS 자동확대 방지: font-size 16px + scale로 시각적 크기 유지 */
+  .form-input {
+    transform-origin: left center;
+  }
+
+  /* 카테고리 선택 */
+  .cat-row  { display:flex; gap:6px; flex-wrap:wrap; }
+  .cat-chip {
+    padding:5px 11px; border-radius:20px; font-size:10px; font-weight:600;
+    border:1.5px solid transparent; cursor:pointer; transition:all .12s;
+    opacity:0.55;
+  }
+  .cat-chip.sel   { opacity:1; }
+  .cat-chip.activity { background:var(--red-bg);    color:var(--red-text);    border-color:var(--red); }
+  .cat-chip.cert     { background:var(--blue-bg);   color:var(--blue-text);   border-color:var(--blue); }
+  .cat-chip.school   { background:var(--green-bg);  color:var(--green-text);  border-color:var(--green); }
+  .cat-chip.internship{background:var(--yellow-bg); color:var(--yellow-text); border-color:var(--yellow); }
+  .cat-chip.overseas { background:var(--overseas-bg); color:var(--overseas-text); border-color:var(--overseas); }
+  .cat-chip.goal     { background:var(--purple-bg); color:var(--purple-text); border-color:var(--purple); }
+
+  /* 단독/기간 토글 */
+  .type-row  { display:flex; gap:6px; }
+  .type-chip {
+    flex:1; padding:7px; border-radius:8px; font-size:11px; font-weight:600;
+    text-align:center; cursor:pointer; transition:all .12s;
+    background:var(--surface); color:var(--text-mid); border:1.5px solid var(--border2);
+  }
+  .type-chip.sel { background:var(--blue-bg); color:var(--blue-text); border-color:var(--blue); }
+
+  /* 종료일 (기간 선택 시만 표시) */
+  .end-date-wrap { display:none; }
+  .end-date-wrap.show { display:flex; flex-direction:column; gap:5px; }
+  /* 종료 날짜 input — 내용 너비에 맞게, 왼쪽 정렬 */
+  .date-input {
+    width:auto !important;
+    display:inline-block;
+    padding:8px 12px;
+    font-size:14px;
+    color:var(--text-mid);
+    appearance:none;
+    -webkit-appearance:none;
+  }
+  .date-input::-webkit-date-and-time-value { text-align:left; }
+
+  /* 저장 버튼 */
+  .form-save {
+    width:100%; padding:12px; margin-top:4px;
+    background:var(--blue); color:#fff;
+    border-radius:10px; font-size:13px; font-weight:700;
+    border:none; cursor:pointer; font-family:inherit;
+    transition:opacity .12s;
+  }
+  .form-save:active { opacity:0.8; }
+
+  /* 기존 일정 수정/삭제 버튼 */
+  .p-item-actions { display:flex; gap:4px; margin-left:auto; flex-shrink:0; }
+  .p-item-edit {
+    font-size:11px; color:rgba(255,255,255,0.22);
+    cursor:pointer; padding:0 3px; line-height:1;
+  }
+  .p-item-edit:active { color:var(--blue-text); }
+
+  /* 패널 구분선 */
+  .p-divider {
+    font-size:8px; font-weight:700; color:var(--text-dim);
+    letter-spacing:0.08em; padding:6px 0 3px;
+  }
+
+  /* 편집 폼 — 기존 form-modal 스타일 재사용, 추가만 */
+  .edit-badge {
+    display:inline-block; font-size:9px; font-weight:700;
+    padding:2px 7px; border-radius:20px; margin-bottom:10px;
+  }
+  .edit-badge.builtin { background:var(--blue-bg); color:var(--blue-text); border:1px solid rgba(74,127,212,0.3); }
+
+  /* 목표 수정 버튼 */
+  .mgoal-wrap { position:relative; }
+  .mgoal-edit-btn {
+    position:absolute; top:7px; right:8px;
+    font-size:12px; color:rgba(138,106,205,0.45);
+    cursor:pointer; padding:2px 4px; line-height:1;
+    transition:color .15s;
+  }
+  .mgoal-edit-btn:active { color:var(--purple); }
+
+  /* 목표 편집 모달 */
+  .goal-modal-overlay {
+    position:fixed; inset:0; z-index:400;
+    background:rgba(0,0,0,0.55);
+    display:flex; align-items:flex-end;
+    opacity:0; pointer-events:none; transition:opacity .25s;
+  }
+  .goal-modal-overlay.open { opacity:1; pointer-events:all; }
+  .goal-modal {
+    width:100%; background:#1a1d28;
+    border-radius:16px 16px 0 0;
+    border-top:1px solid var(--border2);
+    padding:0 18px 40px;
+    transform:translateY(100%);
+    transition:transform .28s cubic-bezier(.4,0,.2,1);
+  }
+  .goal-modal-overlay.open .goal-modal { transform:translateY(0); }
+  .goal-modal-handle { width:36px; height:3px; border-radius:2px; background:var(--border2); margin:10px auto 14px; }
+  .goal-modal-title  { font-size:13px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .goal-modal-sub    { font-size:10px; color:var(--text-dim); margin-bottom:12px; }
+  .goal-textarea {
+    width:100%; background:var(--surface);
+    border:1px solid var(--border2); border-radius:8px;
+    padding:10px 12px; color:var(--text);
+    font-size:16px; font-family:inherit; line-height:1.7;
+    resize:none; outline:none; min-height:120px;
+  }
+  .goal-textarea:focus { border-color:var(--purple); }
+  .goal-modal-hint { font-size:9px; color:var(--text-dim); margin-top:5px; margin-bottom:12px; }
+  .goal-save-btn {
+    width:100%; padding:12px;
+    background:var(--purple); color:#fff;
+    border-radius:10px; font-size:13px; font-weight:700;
+    border:none; cursor:pointer; font-family:inherit;
+  }
+  .goal-save-btn:active { opacity:0.8; }
+
+  /* ── 탭바 ── */
+  .tab-bar { display:flex; border-bottom:1px solid var(--border); background:var(--bg); }
+  .tab-btn {
+    flex:1; padding:10px 0; text-align:center;
+    font-size:11px; font-weight:600; color:var(--text-dim);
+    border-bottom:2px solid transparent; cursor:pointer;
+    letter-spacing:0.04em; transition:color .15s, border-color .15s;
+  }
+  .tab-btn.active { color:var(--blue-bright); border-bottom-color:var(--blue); }
+
+  /* ── 연간 뷰 ── */
+  #year-view  { display:none; padding:10px 12px 80px; }
+  #year-view.show { display:block; }
+  #months.hide { display:none; }
+
+  .year-grid {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:8px;
+  }
+  .mini-card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:10px; overflow:hidden; cursor:pointer;
+    transition:border-color .15s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mini-card:active { border-color:var(--blue); }
+  .mini-card.mc-cur  { border-color:rgba(74,127,212,0.5); box-shadow:0 0 10px rgba(74,127,212,0.1); }
+  .mini-card.mc-past { opacity:0.38; }
+
+  .mini-head {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:5px 7px 3px; border-bottom:1px solid var(--border);
+  }
+  .mini-mname { font-size:11px; font-weight:700; color:var(--text); line-height:1; }
+  .mini-card.mc-cur .mini-mname { color:var(--blue-bright); }
+  .mini-ev-dot { width:5px; height:5px; border-radius:50%; background:var(--blue-bright); }
+
+  .mini-cal { padding:3px 4px 4px; }
+  .mini-dh-row { display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:2px; }
+  .mini-dh  { text-align:center; font-size:5.5px; color:var(--text-dim); padding:1px 0; }
+  .mini-dh.s { color:rgba(224,92,106,0.5); }
+  .mini-dh.e { color:rgba(74,127,212,0.5); }
+  .mini-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:1px; }
+
+  .mdc {
+    aspect-ratio:1; border-radius:2px;
+    font-size:6px; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    position:relative; overflow:hidden;
+  }
+  .mdc.me  { background:transparent; color:transparent; }
+  .mdc.mp  { background:var(--past-bg); color:var(--past-text); }
+  .mdc.mf  { background:var(--surface); color:var(--text-mid); }
+  .mdc.mt  { background:var(--blue)!important; color:#fff!important; font-weight:700; }
+  .mdc.ms:not(.mt):not(.mp) { color:rgba(224,92,106,.65); }
+  .mdc.msa:not(.mt):not(.mp){ color:rgba(106,159,239,.65); }
+  .mdc .evbg { position:absolute; inset:0; border-radius:2px; pointer-events:none; }
+  .mdc.mt .evbg { display:none; }
+
+  /* ── 상단 고정 wrapper ── */
+  .fixed-top {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: rgba(10,12,16,0.97);
+    backdrop-filter: blur(16px);
+  }
+  /* header는 fixed-top 안에 들어가므로 sticky 제거 */
+  .fixed-top .header {
+    position: relative;
+    top: auto;
+  }
+  /* 콘텐츠 영역 상단 여백 — JS로 동적 계산 */
+  .content-wrap { padding-top: 0; }
+
+  .year-switch { display:flex; gap:5px; align-items:center; }
+  .yr-btn {
+    font-size:10px; font-weight:700; padding:3px 9px;
+    border-radius:12px; cursor:pointer; transition:all .15s;
+    border:1px solid var(--border2); color:var(--text-dim); background:transparent;
+  }
+  .yr-btn.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+</style>
+</head>
+<body>
+
+<div class="fixed-top">
+<div class="header">
+  <div class="h-left">
+    <div class="h-title" id="yr-title">2026 취준 로드맵</div>
+    <div class="year-switch"><div class="yr-btn active" id="yr-2026" onclick="switchYear(2026)">2026</div><div class="yr-btn" id="yr-2027" onclick="switchYear(2027)">2027</div></div>
+  </div>
+  <div class="h-right">
+    <span class="d-plus" id="dplus">D+0</span>
+    <span class="today-pill" id="today-pill">--</span>
+  </div>
+</div>
+<div class="prog">
+  <div class="prog-top">
+    <span class="prog-lbl" id="prog-yr-lbl">2026년 진행률</span>
+    <div class="prog-bar"><div class="prog-fill" id="pf" style="width:0%"></div></div>
+    <span class="prog-pct" id="pct">0%</span>
+  </div>
+</div>
+<div class="legend">
+  <div class="li"><div class="lc" style="background:var(--red)"></div>대외활동</div>
+  <div class="li"><div class="lc" style="background:var(--blue)"></div>자격증</div>
+  <div class="li"><div class="lc" style="background:var(--green)"></div>학교 시험</div>
+  <div class="li"><div class="lc" style="background:var(--yellow)"></div>현장실습</div>
+  <div class="li"><div class="lc" style="background:var(--overseas)"></div>해외파견</div>
+  <div class="li"><div class="lc" style="background:var(--purple)"></div>기타/목표</div>
+</div>
+<div class="tab-bar">
+  <div class="tab-btn active" id="tab-month" onclick="switchTab('month')">월별</div>
+  <div class="tab-btn" id="tab-year" onclick="switchTab('year')">연간</div>
+</div>
+</div>
+
+<div class="content-wrap" id="content-wrap">
+<div id="year-view">
+  <div class="year-grid" id="year-grid"></div>
+</div>
+
+<div class="months" id="months"></div>
+
+
+</div>
+
+<div class="overlay" id="overlay" onclick="closePanel()"></div>
+<div class="panel" id="panel">
+  <div class="p-handle"></div>
+  <div class="p-date" id="p-date">—</div>
+  <div id="p-content"></div>
+  <div class="p-add-btn" onclick="openAddForm()">＋ 일정 추가</div>
+</div>
+
+
+<!-- 목표 편집 모달 -->
+<div class="goal-modal-overlay" id="goal-overlay" onclick="handleGoalOverlayClick(event)">
+  <div class="goal-modal">
+    <div class="goal-modal-handle"></div>
+    <div class="goal-modal-title" id="goal-modal-title">목표 수정</div>
+    <div class="goal-modal-sub">한 줄에 하나씩 입력하세요</div>
+    <textarea class="goal-textarea" id="goal-textarea" rows="5" placeholder="목표를 입력하세요&#10;(한 줄에 하나씩)"></textarea>
+    <div class="goal-modal-hint">⭐ 를 앞에 붙이면 강조 표시돼요</div>
+    <button class="goal-save-btn" onclick="saveGoal()">저장</button>
+  </div>
+</div>
+<!-- 일정 추가 폼 -->
+<div class="form-overlay" id="form-overlay" onclick="handleFormOverlayClick(event)">
+  <div class="form-modal" id="form-modal">
+    <div class="form-handle"></div>
+    <div class="form-title" id="form-title">일정 추가</div>
+
+    <div class="form-group">
+      <div class="form-label">일정 이름</div>
+      <input class="form-input" id="fi-name" type="text" placeholder="일정 이름을 입력하세요">
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">카테고리</div>
+      <div class="cat-row" id="cat-row">
+        <div class="cat-chip activity sel" data-cat="activity" onclick="selCat(this)">대외활동</div>
+        <div class="cat-chip cert"         data-cat="cert"     onclick="selCat(this)">자격증</div>
+        <div class="cat-chip school"       data-cat="school"   onclick="selCat(this)">학교 시험</div>
+        <div class="cat-chip internship"   data-cat="internship" onclick="selCat(this)">현장실습</div>
+        <div class="cat-chip overseas"     data-cat="overseas" onclick="selCat(this)">해외파견</div>
+        <div class="cat-chip goal"         data-cat="goal"     onclick="selCat(this)">기타/목표</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">유형</div>
+      <div class="type-row">
+        <div class="type-chip sel" id="type-single" onclick="selType('single')">단독 일정</div>
+        <div class="type-chip"    id="type-range"  onclick="selType('range')">기간 일정</div>
+      </div>
+    </div>
+
+    <div class="form-group end-date-wrap" id="end-date-wrap">
+      <div class="form-label">종료 날짜</div>
+      <input class="form-input date-input" id="fi-end" type="date">
+    </div>
+
+    <button class="form-save" onclick="submitEvent()">저장</button>
+  </div>
+</div>
+
+
+<script>
+// 오늘 날짜를 동적으로 (매일 갱신)
+const _now = new Date();
+const TODAY_2026 = (_now.getFullYear()===2026) ? _now : new Date(2026, 11, 31);
+const TODAY_2027 = (_now.getFullYear()===2027) ? _now : new Date(2027, 0, 1);
+let TODAY = (_now.getFullYear()===2026) ? TODAY_2026 : TODAY_2027;
+let CURRENT_YEAR = 2026;
+const WDAYS    = ['월','화','수','목','금','토','일'];
+const WDAYS_KR = ['일','월','화','수','목','금','토'];
+function pad(n){ return String(n).padStart(2,'0'); }
+function ds(y,m,d){ return `${y}-${pad(m+1)}-${pad(d)}`; }
+function parseD(s){ const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); }
+
+const MONTH_BADGES_2026 = {
+  1:  [{ type:'vacation',   label:'❄️ 동계방학' }],
+  2:  [{ type:'vacation',   label:'❄️ 동계방학 마무리' }],
+  3:  [{ type:'semester',   label:'🎓 1학기 개강' }],
+  4:  [{ type:'activity',   label:'🌟 리얼뷰 활동 중' }, { type:'semester', label:'📝 중간고사' }],
+  5:  [{ type:'activity',   label:'🌟 리얼뷰 활동 중' }],
+  6:  [{ type:'activity',   label:'🌟 리얼뷰 활동 중' }, { type:'semester', label:'📝 기말고사' }],
+  7:  [{ type:'vacation',   label:'☀️ 하계방학' }, { type:'internship', label:'💼 현장실습' }],
+  8:  [{ type:'vacation', label:'☀️ 하계방학' }, { type:'internship', label:'💼 현장실습' }],
+  9:  [{ type:'semester',   label:'🎓 2학기 개강' }, { type:'internship', label:'💼 현장실습' }],
+  10: [{ type:'internship', label:'💼 현장실습' }],
+  11: [{ type:'internship', label:'💼 현장실습' }],
+  12: [{ type:'vacation',   label:'❄️ 동계방학' }, { type:'internship', label:'💼 현장실습' }],
+};
+
+const GOALS_2026 = {
+  2:  ['컴활 1급 필기 취득', '대외활동 탐색'],
+  3:  ['검색광고마케터 자격증 취득', '대외활동 지원'],
+  4:  ['중간고사', '⭐ 현장실습 지원 기간 시작 (4/28~6/8) — 메트릭스튜디오 / NNT'],
+  5:  ['ADsP 자격증 취득', '⭐ 현장실습 지원 기간 진행 중 — 메트릭스튜디오 / NNT'],
+  6:  ['기말고사', '⭐ 현장실습 지원 기간 마감 (6/8) — 메트릭스튜디오 / NNT'],  // "기말고사 준비" → "기말고사"
+  7:  ['현장실습 시작', '데이터 관련 부트캠프', 'SQLD 자격증 취득', '컴활 1급 실기 취득'],
+  11: ['SBS 데이터사이언스와저널리즘아카데미 신청'],
+};
+
+const RANGES_2026 = [
+  { label:'검색광고마케터 원서접수', cat:'cert',       start:'2026-02-09', end:'2026-02-20' },
+  { label:'시험 기간',              cat:'school',     start:'2026-04-06', end:'2026-04-27' }, // 4월 시험기간
+  { label:'ADsP 원서접수',          cat:'cert',       start:'2026-04-13', end:'2026-04-19' },
+  { label:'ADsP 시험 준비',         cat:'cert',       start:'2026-05-01', end:'2026-05-16' },
+  { label:'시험 기간',              cat:'school',     start:'2026-06-01', end:'2026-06-19' }, // 6월 시험기간
+  { label:'SQLD 원서접수',          cat:'cert',       start:'2026-07-20', end:'2026-07-24' },
+  { label:'리얼뷰 대외활동',        cat:'activity',   start:'2026-04-01', end:'2026-06-30' },
+  { label:'현장실습',               cat:'internship', start:'2026-07-01', end:'2026-12-31' },
+];
+
+const SINGLES_2026 = [
+  { date:'2026-01-20', cat:'cert',     label:'컴활1급 시험' },
+  { date:'2026-02-28', cat:'cert',     label:'SNS마케터 시험' },
+  { date:'2026-03-04', cat:'activity', label:'두끼 서포터즈 회의' },
+  { date:'2026-03-25', cat:'activity', label:'reALview 지원 마감' },
+  { date:'2026-03-26', cat:'activity', label:'reALview 결과 발표' },
+  { date:'2026-03-28', cat:'cert',     label:'검색광고마케터 시험 🎯 (14:00)' },
+  { date:'2026-04-01', cat:'activity', label:'리얼뷰 OT' },
+  { date:'2026-04-15', cat:'school',   label:'[중간과제] 언론과대중문화 마감' },
+  { date:'2026-04-17', cat:'cert',     label:'검색광고마케터 합격 발표' },
+  { date:'2026-04-22', cat:'school',   label:'[중간고사] 언론과대중문화' },
+  { date:'2026-04-23', cat:'school',   label:'[중간고사] 비즈니스분석프로그래밍' },
+  { date:'2026-04-27', cat:'school',   label:'[중간고사] 계량경제학' },
+  { date:'2026-05-17', cat:'cert',     label:'ADsP 자격증 시험 🎯' },
+  { date:'2026-05-20', cat:'school',   label:'[중간발표] 언론과대중문화' },
+  { date:'2026-06-15', cat:'school',   label:'[기말고사] 계량경제학' },
+  { date:'2026-06-17', cat:'school',   label:'[기말고사] 언론과대중문화' },
+  { date:'2026-06-18', cat:'school',   label:'[기말고사] 비즈니스분석프로그래밍' },
+  { date:'2026-07-20', cat:'cert',     label:'SQLD 원서접수 시작' },
+  { date:'2026-07-24', cat:'cert',     label:'SQLD 원서접수 마감' },
+  { date:'2026-08-07', cat:'cert',     label:'SQLD 시험 🎯' },
+  { date:'2026-08-22', cat:'cert',     label:'SQLD 결과 발표' },
+];
+
+
+// 2027 — 빈 데이터
+const MONTH_BADGES_2027 = {};
+const GOALS_2027 = {};
+const RANGES_2027 = [];
+const SINGLES_2027 = [];
+
+// 활성 데이터 포인터 (switchYear에서 교체)
+let MONTH_BADGES = MONTH_BADGES_2026;
+let GOALS        = GOALS_2026;
+let RANGES       = RANGES_2026;
+let SINGLES      = SINGLES_2026;
+let SMAP = {};
+function rebuildSMAP(){ Object.keys(SMAP).forEach(k=>delete SMAP[k]); SINGLES.forEach(e=>{ if(!SMAP[e.date])SMAP[e.date]=[]; SMAP[e.date].push(e); }); }
+rebuildSMAP();
+
+// ── 사용자 데이터 ────────────────────────────────────────────
+let USER_EVENTS = [];
+let HIDDEN = [];
+try{ USER_EVENTS = JSON.parse(localStorage.getItem('ue2026')||'[]'); }catch(e){}
+try{ HIDDEN = JSON.parse(localStorage.getItem('hid2026')||'[]'); }catch(e){}
+function saveUE(){ try{ localStorage.setItem('ue'+CURRENT_YEAR, JSON.stringify(USER_EVENTS)); }catch(e){} }
+function saveHidden(){ try{ localStorage.setItem('hid'+CURRENT_YEAR, JSON.stringify(HIDDEN)); }catch(e){} }
+
+function isHidden(cat, label, dateKey){
+  return HIDDEN.some(h=> h.cat===cat && h.label===label && h.dateKey===dateKey);
+}
+function getUserSingles(dateKey){
+  return USER_EVENTS.filter(e=> e.type==='single' && e.start===dateKey);
+}
+function getUserRangesWithPos(dateS, firstDay){
+  const [,,d]=dateS.split('-').map(Number);
+  const dow=(firstDay+d-1)%7;
+  const cur=parseD(dateS);
+  return USER_EVENTS.filter(e=>{
+    if(e.type!=='range') return false;
+    return cur>=parseD(e.start) && cur<=parseD(e.end);
+  }).map(e=>{
+    const s=parseD(e.start), en=parseD(e.end);
+    const iS=cur.getTime()===s.getTime(), iE=cur.getTime()===en.getTime();
+    const pos=iS&&iE?'o':iS?'s':iE?'e':'m';
+    return {...e, pos, rowS:dow===0||d===1, rowE:dow===6};
+  });
+}
+
+// ── 기간 범위 계산 ───────────────────────────────────────────
+function getRanges(dateS, firstDay) {
+  const res=[];
+  const [,,d]=dateS.split('-').map(Number);
+  const dow=(firstDay+d-1)%7;
+  for(const r of RANGES){
+    const s=parseD(r.start), e=parseD(r.end), cur=parseD(dateS);
+    if(cur<s||cur>e) continue;
+    const iS=cur.getTime()===s.getTime(), iE=cur.getTime()===e.getTime();
+    const pos=iS&&iE?'o':iS?'s':iE?'e':'m';
+    res.push({...r, pos, rowS:dow===0||d===1, rowE:dow===6});
+  }
+  return res;
+}
+
+const MONTHS  = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+const SEASONS = ['겨울','겨울','봄','봄','봄','여름','여름','여름','가을','가을','가을','겨울'];
+const DOT_COLOR = { activity:'var(--red)', cert:'var(--blue)', school:'var(--green)', internship:'var(--yellow)', overseas:'var(--overseas)', goal:'var(--purple)' };
+
+function isToday(mi,d){ return TODAY.getFullYear()===CURRENT_YEAR&&mi===TODAY.getMonth()&&d===TODAY.getDate(); }
+function isPastD(mi,d){ return new Date(CURRENT_YEAR,mi,d)<new Date(CURRENT_YEAR,TODAY.getMonth(),TODAY.getDate()); }
+
+// ── 월 렌더 ─────────────────────────────────────────────────
+function renderMonth(mi){
+  const firstDay=(new Date(CURRENT_YEAR,mi,1).getDay()+6)%7;
+  const dim=new Date(CURRENT_YEAR,mi+1,0).getDate();
+  const isCur=mi===TODAY.getMonth(), isPast=mi<TODAY.getMonth();
+
+  const badges=MONTH_BADGES[mi+1]||[];
+  const badgeHTML=badges.length?`<div class="mbadges">${badges.map(b=>`<span class="mbadge ${b.type}">${b.label}</span>`).join('')}</div>`:'';
+  const goalItems=GOALS[mi+1];
+  // USER_GOALS가 있으면 덮어씀
+  const effectiveGoalItems = USER_GOALS[mi+1] || goalItems;
+  const goalHTML=effectiveGoalItems?`<div class="mgoal mgoal-wrap">
+    <span class="mgoal-edit-btn" onclick="openGoalEdit(${mi+1})">✎</span>
+    <div class="mgoal-head">▸ 이달의 목표</div>
+    <div class="mgoal-items">${effectiveGoalItems.map((g,i)=>`<div class="mgoal-item"><span class="mgoal-num">${i+1}</span><span>${g}</span></div>`).join('')}</div>
+  </div>`:(mi+1 >= 1 && mi+1 <= 12 ? `<div class="mgoal mgoal-wrap">
+    <span class="mgoal-edit-btn" onclick="openGoalEdit(${mi+1})">✎</span>
+    <div class="mgoal-head">▸ 이달의 목표</div>
+    <div class="mgoal-items"><div class="mgoal-item" style="color:var(--text-dim)">목표를 추가해보세요</div></div>
+  </div>` : '');
+
+  let cells='';
+  for(let i=0;i<firstDay;i++) cells+=`<div class="dc emp"></div>`;
+  for(let d=1;d<=dim;d++){
+    const tod=isToday(mi,d), past=isPastD(mi,d);
+    const dow=(firstDay+d-1)%7;
+    const dateKey=ds(CURRENT_YEAR,mi,d);
+    let cls='dc';
+    if(tod) cls+=' tod'; else if(past) cls+=' past'; else cls+=' fut';
+    if(dow===6) cls+=' sun';
+    if(dow===5) cls+=' sat';
+
+    const builtinRanges=getRanges(dateKey,firstDay);
+    const userRanges=getUserRangesWithPos(dateKey,firstDay);
+    const allRanges=[...builtinRanges,...userRanges];
+
+    let barsHTML='';
+    if(allRanges.length>0){
+      const bars=allRanges.map(r=>{
+        let bc=`rbar ${r.cat} r${r.pos}`;
+        if(r.pos==='m'&&r.rowS) bc+=' row-s';
+        if(r.pos==='m'&&r.rowE) bc+=' row-e';
+        if(r.pos==='s'&&r.rowE) bc+=' row-e';
+        if(r.pos==='e'&&r.rowS) bc+=' row-s';
+        return `<div class="${bc}"></div>`;
+      }).join('');
+      barsHTML=`<div class="rbars">${bars}</div>`;
+    }
+
+    const builtinSingles=(SMAP[dateKey]||[]).filter(s=>!isHidden(s.cat,s.label,dateKey));
+    const userSingles=getUserSingles(dateKey);
+    const allSingles=[...builtinSingles,...userSingles];
+    const rangeLabelSet=new Set(allRanges.map(r=>r.label));
+    const dotCats=[...new Set(allSingles.filter(s=>!rangeLabelSet.has(s.label)).map(s=>s.cat))].slice(0,3);
+    const dotsHTML=dotCats.length?`<div class="dots">${dotCats.map(c=>`<div class="dot ${c}"></div>`).join('')}</div>`:'';
+
+    cells+=`<div class="${cls}" id="dc-${dateKey}" onclick="selectDay('${dateKey}',${mi},${d})"><span class="dn">${d}</span>${dotsHTML}${barsHTML}</div>`;
+  }
+
+  const statusTag=isCur?`<span class="mtag t-cur">진행 중</span>`:isPast?`<span class="mtag t-done">완료</span>`:'';
+  return `
+  <div class="mcard${isCur?' cur':isPast?' past':''}" id="m${mi}">
+    <div class="mhead">
+      <div class="mhead-top"><div class="mname">${MONTHS[mi]}</div><div class="mtags">${statusTag}<span class="mtag t-season">${SEASONS[mi]}</span></div></div>
+      ${badgeHTML}
+    </div>
+    <div class="mhead-divider"></div>
+    ${goalHTML}
+    <div class="cal">
+      <div class="dheader">${WDAYS.map((w,i)=>`<div class="dh${i===5?' sat':i===6?' sun':''}">${w}</div>`).join('')}</div>
+      <div class="dgrid">${cells}</div>
+    </div>
+  </div>`;
+}
+
+function rerenderMonth(mi){
+  const el=document.getElementById(`m${mi}`);
+  if(!el) return;
+  const parent=el.parentNode;
+  if(!parent) return;
+  const tmp=document.createElement('div');
+  tmp.innerHTML=renderMonth(mi);
+  const newEl=tmp.firstElementChild;
+  parent.replaceChild(newEl, el);
+}
+
+// ── 패널 ────────────────────────────────────────────────────
+let selCell=null;
+function selectDay(dateKey, mi, d){
+  if(selCell) document.getElementById('dc-'+selCell)?.classList.remove('selected');
+  selCell=dateKey;
+  document.getElementById('dc-'+dateKey)?.classList.add('selected');
+  const [,m,day]=dateKey.split('-').map(Number);
+  const dow=new Date(CURRENT_YEAR,m-1,day).getDay();
+  document.getElementById('p-date').textContent=`${m}월 ${day}일 (${WDAYS_KR[dow]})`;
+
+  const firstDay=(new Date(CURRENT_YEAR,m-1,1).getDay()+6)%7;
+  const builtinRanges=getRanges(dateKey,firstDay);
+  const builtinSingles=(SMAP[dateKey]||[]).filter(s=>!isHidden(s.cat,s.label,dateKey));
+  const seen=new Set(), uniq=[];
+  [...builtinRanges.map(r=>({cat:r.cat,label:r.label})),...builtinSingles.map(s=>({cat:s.cat,label:s.label}))].forEach(it=>{
+    const k=it.cat+it.label; if(!seen.has(k)){ seen.add(k); uniq.push(it); }
+  });
+
+  const userItems=[];
+  USER_EVENTS.forEach((e,idx)=>{
+    if(e.type==='single'&&e.start===dateKey) userItems.push({...e,idx});
+    if(e.type==='range'){
+      const cur=parseD(dateKey);
+      if(cur>=parseD(e.start)&&cur<=parseD(e.end)) userItems.push({...e,idx});
+    }
+  });
+
+  const content=document.getElementById('p-content');
+  if(uniq.length===0&&userItems.length===0){
+    content.innerHTML=`<div class="p-empty">등록된 일정이 없어요</div>`;
+  } else {
+    const builtHtml=uniq.length===0?'':
+      (userItems.length>0?`<div class="p-divider">기존 일정</div>`:'')+
+      `<div class="p-items">${uniq.map((it,i)=>{
+        const esc=it.label.replace(/'/g,"\'");
+        const actions=`<div class="p-item-actions"><span class="p-item-edit" onclick="openEditBuiltin(${i},'${dateKey}')">✎</span><span class="p-item-del" onclick="hideBuiltin('${it.cat}','${esc}','${dateKey}')">✕</span></div>`;
+        return `<div class="p-item ${it.cat}"><div class="p-dot" style="background:${DOT_COLOR[it.cat]}"></div><span>${it.label}</span>${actions}</div>`;
+      }).join('')}</div>`;
+    const userHtml=userItems.length===0?'':
+      (uniq.length>0?`<div class="p-divider">추가한 일정</div>`:'')+
+      `<div class="p-items">${userItems.map(it=>{
+        const actions=`<div class="p-item-actions"><span class="p-item-edit" onclick="openEditUser(${it.idx},'${dateKey}')">✎</span><span class="p-item-del" onclick="deleteUserEvent(${it.idx})">✕</span></div>`;
+        return `<div class="p-item ${it.cat}"><div class="p-dot" style="background:${DOT_COLOR[it.cat]}"></div><span>${it.label}</span>${actions}</div>`;
+      }).join('')}</div>`;
+    content.innerHTML=builtHtml+userHtml;
+  }
+  document.getElementById('panel').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closePanel(){
+  document.getElementById('panel').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  if(selCell){ document.getElementById('dc-'+selCell)?.classList.remove('selected'); selCell=null; }
+}
+
+function hideBuiltin(cat, label, dateKey){
+  if(!isHidden(cat,label,dateKey)) HIDDEN.push({cat,label,dateKey});
+  saveHidden();
+  const [,m,d]=dateKey.split('-').map(Number);
+  rerenderMonth(m-1);
+  selectDay(dateKey, m-1, parseInt(d));
+}
+
+function deleteUserEvent(idx){
+  const ev = USER_EVENTS[idx];
+  USER_EVENTS.splice(idx,1);
+  saveUE();
+  const [,m,d]=selCell.split('-').map(Number);
+  if(ev && ev.type==='range' && ev.end){
+    const [,em]=ev.end.split('-').map(Number);
+    for(let mi=m-1; mi<=em-1; mi++) rerenderMonth(mi);
+  } else {
+    rerenderMonth(m-1);
+  }
+  selectDay(selCell, m-1, parseInt(d));
+}
+
+// ── 폼 ──────────────────────────────────────────────────────
+let formDateKey=null, formCat='activity', formType='single', editMode=null;
+
+function openAddForm(){
+  if(!selCell) return;
+  editMode=null;
+  formDateKey=selCell;
+  const [,m,d]=formDateKey.split('-').map(Number);
+  document.getElementById('form-title').textContent=`${m}월 ${d}일 일정 추가`;
+  document.getElementById('fi-name').value='';
+  document.getElementById('fi-end').min=`${CURRENT_YEAR}-01-01`;
+  document.getElementById('fi-end').max=`${CURRENT_YEAR}-12-31`;
+  document.getElementById('fi-end').value=formDateKey;
+  formCat='activity';
+  document.querySelectorAll('.cat-chip').forEach(c=>c.classList.toggle('sel',c.dataset.cat==='activity'));
+  formType='single'; selType('single');
+  document.querySelector('.form-save').textContent='저장';
+  document.getElementById('form-overlay').classList.add('open');
+}
+
+function openEditBuiltin(itemIdx, dateKey){
+  const [,m,d]=dateKey.split('-').map(Number);
+  const firstDay=(new Date(CURRENT_YEAR,m-1,1).getDay()+6)%7;
+  const builtinRanges=getRanges(dateKey,firstDay);
+  const builtinSingles=(SMAP[dateKey]||[]).filter(s=>!isHidden(s.cat,s.label,dateKey));
+  const seen=new Set(), uniq=[];
+  [...builtinRanges.map(r=>({cat:r.cat,label:r.label})),...builtinSingles.map(s=>({cat:s.cat,label:s.label}))].forEach(it=>{
+    const k=it.cat+it.label; if(!seen.has(k)){ seen.add(k); uniq.push(it); }
+  });
+  const it=uniq[itemIdx]; if(!it) return;
+  editMode={type:'builtin', dateKey, cat:it.cat, label:it.label};
+  formDateKey=dateKey; formCat=it.cat; formType='single';
+  document.getElementById('form-title').textContent=`${m}월 ${d}일 일정 수정`;
+  document.getElementById('fi-name').value=it.label;
+  document.querySelectorAll('.cat-chip').forEach(c=>c.classList.toggle('sel',c.dataset.cat===it.cat));
+  selType('single');
+  document.querySelector('.form-save').textContent='수정 완료';
+  document.getElementById('form-overlay').classList.add('open');
+}
+
+function openEditUser(idx, dateKey){
+  const e=USER_EVENTS[idx]; if(!e) return;
+  editMode={type:'user', idx, dateKey};
+  formDateKey=dateKey; formCat=e.cat; formType=e.type;
+  const [,m,d]=dateKey.split('-').map(Number);
+  document.getElementById('form-title').textContent=`${m}월 ${d}일 일정 수정`;
+  document.getElementById('fi-name').value=e.label;
+  document.querySelectorAll('.cat-chip').forEach(c=>c.classList.toggle('sel',c.dataset.cat===e.cat));
+  selType(e.type);
+  document.getElementById('fi-end').min=`${CURRENT_YEAR}-01-01`;
+  document.getElementById('fi-end').max=`${CURRENT_YEAR}-12-31`;
+  if(e.type==='range') document.getElementById('fi-end').value=e.end||dateKey;
+  document.querySelector('.form-save').textContent='수정 완료';
+  document.getElementById('form-overlay').classList.add('open');
+}
+
+function closeAddForm(){
+  editMode=null;
+  document.querySelector('.form-save').textContent='저장';
+  document.getElementById('form-overlay').classList.remove('open');
+}
+function handleFormOverlayClick(e){ if(e.target===document.getElementById('form-overlay')) closeAddForm(); }
+
+function selCat(el){
+  formCat=el.dataset.cat;
+  document.querySelectorAll('.cat-chip').forEach(c=>c.classList.toggle('sel',c===el));
+}
+function selType(t){
+  formType=t;
+  document.getElementById('type-single').classList.toggle('sel',t==='single');
+  document.getElementById('type-range').classList.toggle('sel',t==='range');
+  document.getElementById('end-date-wrap').classList.toggle('show',t==='range');
+}
+
+function submitEvent(){
+  const name=document.getElementById('fi-name').value.trim();
+  if(!name){ document.getElementById('fi-name').focus(); return; }
+  const endVal=document.getElementById('fi-end').value||formDateKey;
+  const dk=editMode?.dateKey||formDateKey;
+
+  if(editMode?.type==='builtin'){
+    hideBuiltin(editMode.cat, editMode.label, editMode.dateKey);
+    USER_EVENTS.push(formType==='single'
+      ?{type:'single',start:editMode.dateKey,cat:formCat,label:name}
+      :{type:'range', start:editMode.dateKey,end:endVal,cat:formCat,label:name});
+    saveUE();
+  } else if(editMode?.type==='user'){
+    USER_EVENTS[editMode.idx]=formType==='single'
+      ?{type:'single',start:editMode.dateKey,cat:formCat,label:name}
+      :{type:'range', start:editMode.dateKey,end:endVal,cat:formCat,label:name};
+    saveUE();
+  } else {
+    USER_EVENTS.push(formType==='single'
+      ?{type:'single',start:formDateKey,cat:formCat,label:name}
+      :{type:'range', start:formDateKey,end:endVal,cat:formCat,label:name});
+    saveUE();
+  }
+  closeAddForm();
+  const [,m,d]=dk.split('-').map(Number);
+  // 기간 일정이면 시작~종료 달 전부 리렌더
+  if(formType==='range' && endVal && endVal!==dk){
+    const [,em]=endVal.split('-').map(Number);
+    const startMi=m-1, endMi=em-1;
+    for(let mi=startMi; mi<=endMi; mi++) rerenderMonth(mi);
+  } else {
+    rerenderMonth(m-1);
+  }
+  selectDay(dk, m-1, parseInt(d));
+}
+
+// ── 사용자 목표 수정 ─────────────────────────────────────────
+let USER_GOALS = {};
+try{ USER_GOALS = JSON.parse(localStorage.getItem('ug2026')||'{}'); }catch(e){}
+function saveUserGoals(){ try{ localStorage.setItem('ug2026', JSON.stringify(USER_GOALS)); }catch(e){} }
+
+let editGoalMonth = null;
+
+function openGoalEdit(month){
+  editGoalMonth = month;
+  document.getElementById('goal-modal-title').textContent = `${month}월 목표 수정`;
+  const items = USER_GOALS[month] || GOALS[month] || [];
+  document.getElementById('goal-textarea').value = items.join('\n');
+  document.getElementById('goal-overlay').classList.add('open');
+}
+
+function handleGoalOverlayClick(e){
+  if(e.target===document.getElementById('goal-overlay')) closeGoalModal();
+}
+function closeGoalModal(){
+  document.getElementById('goal-overlay').classList.remove('open');
+}
+
+function saveGoal(){
+  const raw = document.getElementById('goal-textarea').value;
+  const items = raw.split('\n').map(s=>s.trim()).filter(s=>s.length>0);
+  if(editGoalMonth){
+    USER_GOALS[editGoalMonth] = items;
+    saveUserGoals();
+    closeGoalModal();
+    rerenderMonth(editGoalMonth - 1);
+  }
+}
+
+// ── 탭 전환 ─────────────────────────────────────────────────
+function switchTab(tab){
+  const mv=document.getElementById('months');
+  const yv=document.getElementById('year-view');
+  const tm=document.getElementById('tab-month');
+  const ty=document.getElementById('tab-year');
+  if(tab==='year'){
+    mv.classList.add('hide');
+    yv.classList.add('show');
+    tm.classList.remove('active'); ty.classList.add('active');
+    renderYearView();
+  } else {
+    yv.classList.remove('show'); mv.classList.remove('hide');
+    ty.classList.remove('active'); tm.classList.add('active');
+  }
+}
+
+// ── 날짜별 이벤트 대표 색상 ──────────────────────────────────
+function getEvColor(dateKey){
+  const [yr,mo]=dateKey.split('-').map(Number);
+  const fd=(new Date(yr,mo-1,1).getDay()+6)%7;
+  const br=getRanges(dateKey,fd);
+  const ur=getUserRangesWithPos(dateKey,fd);
+  const bs=(SMAP[dateKey]||[]).filter(s=>!isHidden(s.cat,s.label,dateKey));
+  const us=getUserSingles(dateKey);
+  const cats=[...br.map(r=>r.cat),...ur.map(r=>r.cat),...bs.map(s=>s.cat),...us.map(s=>s.cat)];
+  if(!cats.length) return null;
+  const pri=['internship','overseas','activity','cert','school','goal'];
+  const best=pri.find(p=>cats.includes(p))||cats[0];
+  return {
+    activity:'rgba(224,92,106,0.55)', cert:'rgba(74,127,212,0.55)',
+    school:'rgba(61,184,122,0.50)',   internship:'rgba(212,168,61,0.55)',
+    goal:'rgba(138,106,205,0.45)',
+  }[best]||null;
+}
+
+// ── 미니 월 렌더 ─────────────────────────────────────────────
+function renderMiniMonth(mi){
+  const fd=(new Date(CURRENT_YEAR,mi,1).getDay()+6)%7;
+  const dim=new Date(CURRENT_YEAR,mi+1,0).getDate();
+  const isCur=mi===TODAY.getMonth(), isPast=mi<TODAY.getMonth();
+
+  let cells='';
+  for(let i=0;i<fd;i++) cells+=`<div class="mdc me"></div>`;
+  for(let d=1;d<=dim;d++){
+    const tod=isToday(mi,d), past=isPastD(mi,d);
+    const dow=(fd+d-1)%7;
+    const dk=ds(CURRENT_YEAR,mi,d);
+    let cls='mdc';
+    if(tod) cls+=' mt'; else if(past) cls+=' mp'; else cls+=' mf';
+    if(dow===6) cls+=' ms';
+    if(dow===5) cls+=' msa';
+    const color=getEvColor(dk);
+    const evbg=color&&!tod?`<div class="evbg" style="background:${color}"></div>`:'';
+    cells+=`<div class="${cls}">${d}${evbg}</div>`;
+  }
+
+  const hasEv=Array.from({length:dim},(_,i)=>getEvColor(ds(2026,mi,i+1))).some(Boolean);
+  let cardCls='mini-card';
+  if(isCur)  cardCls+=' mc-cur';
+  if(isPast) cardCls+=' mc-past';
+
+  return `<div class="${cardCls}" onclick="goToMonth(${mi})">
+    <div class="mini-head">
+      <span class="mini-mname">${MONTHS[mi]}</span>
+      ${hasEv?'<div class="mini-ev-dot"></div>':''}
+    </div>
+    <div class="mini-cal">
+      <div class="mini-dh-row">${WDAYS.map((w,i)=>`<div class="mini-dh${i===5?' e':i===6?' s':''}">${w[0]}</div>`).join('')}</div>
+      <div class="mini-grid">${cells}</div>
+    </div>
+  </div>`;
+}
+
+function renderYearView(){
+  document.getElementById('year-grid').innerHTML=
+    Array.from({length:12},(_,i)=>renderMiniMonth(i)).join('');
+}
+
+function goToMonth(mi){
+  switchTab('month');
+  setTimeout(()=>{
+    document.getElementById(`m${mi}`)?.scrollIntoView({behavior:'smooth',block:'start'});
+  },100);
+}
+
+
+// ── 고정 영역 높이 측정 → content-wrap 여백 설정 ────────────
+function updatePaddingTop() {
+  const ft = document.querySelector('.fixed-top');
+  const cw = document.getElementById('content-wrap');
+  if (ft && cw) cw.style.paddingTop = ft.getBoundingClientRect().height + 'px';
+}
+window.addEventListener('resize', updatePaddingTop);
+
+// ── 연도 전환 ────────────────────────────────────────────────
+function switchYear(year) {
+  if (CURRENT_YEAR === year) return;
+  CURRENT_YEAR = year;
+  TODAY = year === 2026 ? TODAY_2026 : TODAY_2027;
+  MONTH_BADGES = year === 2026 ? MONTH_BADGES_2026 : MONTH_BADGES_2027;
+  GOALS        = year === 2026 ? GOALS_2026        : GOALS_2027;
+  RANGES       = year === 2026 ? RANGES_2026        : RANGES_2027;
+  SINGLES      = year === 2026 ? SINGLES_2026       : SINGLES_2027;
+  rebuildSMAP();
+  // 연도별 사용자 데이터 로드
+  try{ USER_EVENTS = JSON.parse(localStorage.getItem('ue'+year)||'[]'); }catch(e){ USER_EVENTS=[]; }
+  try{ HIDDEN      = JSON.parse(localStorage.getItem('hid'+year)||'[]'); }catch(e){ HIDDEN=[]; }
+  document.getElementById('yr-2026').classList.toggle('active', year===2026);
+  document.getElementById('yr-2027').classList.toggle('active', year===2027);
+  render();
+}
+
+// ── 초기 렌더 ───────────────────────────────────────────────
+function render(){
+  const s=new Date(CURRENT_YEAR,0,1),e=new Date(CURRENT_YEAR,11,31);
+  document.getElementById('dplus').textContent=`D+${Math.max(0,Math.floor((TODAY-s)/86400000))}`;
+  document.getElementById('today-pill').textContent=`${TODAY.getMonth()+1}월 ${TODAY.getDate()}일`;
+  const pct=Math.min(100,Math.max(0,Math.round((TODAY-s)/(e-s)*100)));
+  document.getElementById('pct').textContent=pct+'%';
+  document.getElementById('pf').style.width=pct+'%';
+  document.getElementById('yr-title').textContent=`${CURRENT_YEAR} 취준 로드맵`;
+  document.getElementById('prog-yr-lbl').textContent=`${CURRENT_YEAR}년 진행률`;
+  document.getElementById('months').innerHTML=Array.from({length:12},(_,i)=>renderMonth(i)).join('');
+  setTimeout(()=>document.getElementById(`m${TODAY.getMonth()}`)?.scrollIntoView({behavior:'smooth',block:'start'}),200);
+  requestAnimationFrame(updatePaddingTop);
+}
+render();
+</script>
+</html>
